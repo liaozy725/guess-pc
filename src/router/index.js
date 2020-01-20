@@ -16,7 +16,10 @@ const routes = [{
       path: '/layout/home',
       name: '首页',
       component: () => import('../views/Home/Home.vue'),
-    }]
+      
+    },
+  //用户中心-提现
+  {path:'/layout/withdraw',name:'withdraw',component: () => import('../views/User/withdraw.vue'),meta: { keepAlive: true ,title:'提现',}},]
   }
 ]
 
