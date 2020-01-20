@@ -97,7 +97,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "../style/variables.scss";
+@import "../style/color.scss";
 .layout {
   height: 100%;
   display: flex;
