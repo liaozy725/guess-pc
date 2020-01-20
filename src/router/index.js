@@ -3,11 +3,20 @@ import VueRouter from 'vue-router'
 
 Vue.use(VueRouter)
 
-const routes = [
-  {
+const routes = [{
     path: '/login',
     name: '登录',
-    component: () => import(/* webpackChunkName: "about" */ '../views/Login.vue')
+    component: () => import( /* webpackChunkName: "about" */ '../views/Login.vue')
+  },
+  {
+    path: '/layout',
+    name: '',
+    component: () => import('../views/Layout.vue'),
+    children: [{
+      path: '/layout/home',
+      name: '首页',
+      component: () => import('../views/Home/Home.vue'),
+    }]
   }
 ]
 
