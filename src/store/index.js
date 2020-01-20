@@ -19,12 +19,12 @@ export default new Vuex.Store({
     // 设置用户信息
     setUserInfo(state,userInfo){
       state.userInfo = userInfo;
-      localStorage.setItem('userInfo',JSON.stringify(userInfo));
+      sessionStorage.setItem('userInfo',JSON.stringify(userInfo));
     },
     // 设置 token
     setToken(state,token){
       state.token = token;
-      localStorage.setItem('token',token);
+      sessionStorage.setItem('token',token);
     },
     // 显示是否显示时间选项
     setShowDatePicker(state,flag){

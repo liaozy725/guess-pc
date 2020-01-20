@@ -18,40 +18,40 @@
         </div>
         <div class="header-box" @click="showUserMenu = !showUserMenu">
           <img src="../assets/icon-user.png" alt="">
-          <span>未登录</span>
+          <span v-if="$store.state.userInfo">{{$store.state.userInfo.accountLogin}}</span>
+          <span v-else>暂未登录</span>
         </div>
       </div>
     </div>
-    <Drawer v-model='showUserMenu'>
-      <div class="user-menu">
-        <div class="header">
-          <div @click="goToRouterLink('/layout/pay')" class="item">
-            <label>余额</label>
-            <p v-if="$store.state.userInfo">{{$store.state.userInfo.userBalance||0}}</p>
-            <p v-else>0</p>
-          </div>
-          <div @click="goToRouterLink('/layout/withdraw')" class="item">
-            <label>可提</label>
-            <p v-if="$store.state.userInfo">{{$store.state.userInfo.userBalance}}</p>
-            <p v-else>0</p>
-          </div>
-          <div @click="goToRouterLink('/layout/Bonus')" class="item">
-            <label>奖金</label>
-            <p v-if="$store.state.userInfo">{{$store.state.userInfo.userPrize}}</p>
-            <p v-else>0</p>
-          </div>
+    <Drawer v-model='showUserMenu' class="user-menu" width='320'>
+      <div class="header">
+        <div @click="goToRouterLink('/layout/pay')" class="item">
+          <label>余额</label>
+          <p v-if="$store.state.userInfo">{{$store.state.userInfo.userBalance||0}}</p>
+          <p v-else>0</p>
         </div>
-        <div class="menu-list">
-          <div @click='goToRouterLink("/layout/pay")' class="link">充值</div>
-          <div @click='goToRouterLink("/layout/withdraw")' class="link">提现</div>
-          <div @click='goToRouterLink("/layout/GuessHistory")' class="link">投注历史</div>
-          <div @click='goToRouterLink("/layout/stream")' class="link">财务流水</div>
-          <div @click='goToRouterLink("/layout/AccountSafe")' class="link">账号安全</div>
-          <div @click='goToRouterLink("/layout/SystemMsg")' class="link">系统消息</div>
-          <div @click='goToRouterLink("/layout/home")' class="link">联系客服</div>
+        <div @click="goToRouterLink('/layout/withdraw')" class="item">
+          <label>可提</label>
+          <p v-if="$store.state.userInfo">{{$store.state.userInfo.userBalance}}</p>
+          <p v-else>0</p>
         </div>
-        <div class="logout" @click="logout">退出登录</div>
+        <div @click="goToRouterLink('/layout/Bonus')" class="item">
+          <label>奖金</label>
+          <p v-if="$store.state.userInfo">{{$store.state.userInfo.userPrize}}</p>
+          <p v-else>0</p>
+        </div>
       </div>
+      <div class="menu-list">
+        <div @click='goToRouterLink("/layout/pay")' class="link">充值</div>
+        <div @click='goToRouterLink("/layout/withdraw")' class="link">提现</div>
+        <div @click='goToRouterLink("/layout/GuessHistory")' class="link">投注历史</div>
+        <div @click='goToRouterLink("/layout/stream")' class="link">财务流水</div>
+        <div @click='goToRouterLink("/layout/AccountSafe")' class="link">账号安全</div>
+        <div @click='goToRouterLink("/layout/SystemMsg")' class="link">系统消息</div>
+        <div @click='goToRouterLink("/layout/home")' class="link">联系客服</div>
+        <div class="logout link" @click="logout">退出登录</div>
+      </div>
+
     </Drawer>
     <router-view class="layout-view"></router-view>
   </div>
@@ -64,6 +64,9 @@ export default {
       showUserMenu: false,
       showCalendar: false,
     }
+  },
+  created() {
+
   },
   methods: {
     // 跳转
@@ -136,6 +139,58 @@ export default {
   }
 }
 // 用户信息
-/deep/.user-menu {
+.user-menu {
+  /deep/.ivu-drawer {
+    top: 48px;
+    .ivu-drawer-content {
+      background: $dark333;
+      color: $gray;
+
+      .header {
+        display: flex;
+        margin-top: 20px;
+        .item {
+          flex: 1;
+          text-align: center;
+          font-size: 18px;
+          cursor: pointer;
+          padding: 20px 0;
+          border-radius: 10px;
+          &:hover {
+            background: $dark111;
+          }
+          &:not(:first-child){
+            position: relative;
+          }
+          &:not(:first-child)::before{
+            content: '';
+            position: absolute;
+            width: 0;
+            left: 0;
+            top: 30px;
+            height: 30px;
+            border-left: 2px solid $gray;
+          }
+          p{
+            margin-top: 4px;
+          }
+        }
+      }
+    }
+    .menu-list {
+      .link {
+        padding: 20px;
+        font-size: 16px;
+        cursor: pointer;
+        color: $gray;
+        &:hover {
+          background: $dark111;
+        }
+      }
+      .logout {
+        color: #89868f;
+      }
+    }
+  }
 }
 </style>
