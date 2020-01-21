@@ -7,7 +7,24 @@
 <style lang="scss">
 @import "./style/index.scss"; // 全局自定义的css···样式
 @import "./style/iconfont/iconfont.css";
+.top-item-box{
+  margin-top:10px;
+  cursor: pointer;
+  span{
+    color:$gray;
+    font-size:17px;
 
+  }
+  i{
+    font-size:22px;
+    margin-left:10px;
+    color:$gray;
+  }
+}
+.box-pack {
+  width: 450px;
+  margin: 20px auto 0;
+}
 /* 样式自定义 */
 #app {
   // input 样式
@@ -46,7 +63,7 @@
   .ivu-input-number {
     background-color: transparent;
     border: none;
-    width: 87%;
+    width: 100%;
     height: 68px;
     line-height: 68px;
   }

@@ -1,5 +1,8 @@
 <template>
   <div class="container">
+    <div class="top-item-box" @click="back">
+      <Icon type="md-arrow-back" /><span>返回</span>
+    </div>
     <div class="box-pack">
       <router-link to="/layout/BankcardInfo">
         <div class="card-box between">
@@ -27,7 +30,12 @@
         <div class="content-body content-c">
           <p class="content-label">提现金额</p>
           <div class="content-c-input between">
-            <InputNumber :max="100000" :min="0" v-model="price"></InputNumber>
+            <InputNumber
+              :max="100000"
+              placeholder="请输入提现金额"
+              :min="0"
+              v-model="price"
+            ></InputNumber>
             <!-- <van-field readonly clickable class="input-box" :value="price" placeholder="请输入提现金额" @touchstart.native.stop="show = true" /> -->
             <div class="img-box" @click="clearPrice">
               <img src="../../assets/icon-close2.png" alt />
@@ -99,19 +107,12 @@
         <van-picker :columns="columns" @change="onChange" show-toolbar title="选择银行卡" @cancel="onCancel" @confirm="onConfirm" />
       </div>
     </van-popup> -->
-      <!-- 数字键盘 -->
-      <!-- <van-number-keyboard v-model="price" extra-key="." :show="show" safe-area-inset-bottom :maxlength="10" @blur="show = false" /> -->
-      <!-- 支付键盘 -->
-      <!-- <van-number-keyboard :show="showKeyboard" @input="onInput" @delete="onDelete" @blur="showKeyboard = false" /> -->
-      <!-- 无银行卡提示弹框 -->
     </div>
   </div>
 </template>
 
 <script>
 import { uploadUserInfo } from "@/utils/utils.js";
-// let iconSuccess = require('@/assets/icon-success.png');
-// let iconWarning = require('@/assets/icon-warning.png');
 export default {
   name: "withdraw",
   data() {
@@ -121,7 +122,6 @@ export default {
       showShopCar: false, //遮罩层
       price: null, //金额
       show: false, //控制弹出数字键盘
-      allPrice: "200", //可提现的余额
       bankcardModel: false, //控制银行卡选择的弹框
       columns: [],
       password: "", //支付密码
@@ -146,6 +146,10 @@ export default {
   },
   methods: {
     uploadUserInfo: uploadUserInfo, //获取用户详情
+    //返回
+    back() {
+      window.history.back(-1); 
+    },
     //获取银行卡信息
     getBankInfo() {
       var params = {
@@ -200,7 +204,7 @@ export default {
     },
     //清空金额
     clearPrice() {
-      this.price = "";
+      this.price = null;
     },
     //点击全部提现
     allWithdraw() {
@@ -208,9 +212,9 @@ export default {
 
       // }
       if (this.userInfo && this.userInfo.userBalance) {
-        this.price = this.userInfo.userBalance + "";
+        this.price = this.userInfo.userBalance;
       } else {
-        this.price = "0";
+        this.price = 0;
       }
     },
     //选择支付方式
@@ -274,6 +278,11 @@ export default {
             content: "输入金额不能大于100000"
           });
         }
+      } else {
+        this.$Message.warning({
+          duration: 2,
+          content: "请输入提现金额"
+        });
       }
     },
     //点击确认支付
@@ -322,10 +331,7 @@ export default {
 a {
   display: block;
 }
-.box-pack {
-  width: 450px;
-  margin: 20px auto 0;
-}
+
 .container {
   height: 100%;
   overflow-y: auto;
@@ -336,7 +342,6 @@ a {
     background-color: #35333b;
     border-radius: 5px;
     width: 100%;
-    padding: 0 40px;
     .card-box-l {
       img {
         width: 20px;

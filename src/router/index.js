@@ -13,13 +13,31 @@ const routes = [{
     name: '',
     component: () => import('../views/Layout.vue'),
     children: [{
-      path: '/layout/home',
-      name: '首页',
-      component: () => import('../views/Home/Home.vue'),
-      
-    },
-  //用户中心-提现
-  {path:'/layout/withdraw',name:'withdraw',component: () => import('../views/User/withdraw.vue'),meta: { keepAlive: true ,title:'提现',}}]
+        path: '/layout/home',
+        name: '首页',
+        component: () => import('../views/Home/Home.vue'),
+
+      },
+      //用户中心-提现
+      {
+        path: '/layout/withdraw',
+        name: 'withdraw',
+        component: () => import('../views/User/withdraw.vue'),
+        meta: {
+          keepAlive: true,
+          title: '提现',
+        }
+      }, //用户中心-充值
+      {
+        path: '/layout/pay',
+        name: 'pay',
+        component: () => import('../views/User/pay.vue'),
+        meta: {
+          keepAlive: true,
+          title: '充值',
+        }
+      },
+    ]
   }
 ]
 
