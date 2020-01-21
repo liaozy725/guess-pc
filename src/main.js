@@ -10,10 +10,14 @@ import {
 import NProgress from 'nprogress' // Progress 进度条
 import 'nprogress/nprogress.css' // Progress 进度条样式
 import axios from 'axios'
-
+import VueLazyload from 'vue-lazyload'
 Vue.use(ViewUI);
-
 Vue.config.productionTip = false
+Vue.use(VueLazyload, {
+  preLoad: 1.3,
+  error: require('@/assets/no-image.png'),
+  attempt: 2
+})
 
 if (process.env.NODE_ENV == 'production') {
   // 生产环境
