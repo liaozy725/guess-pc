@@ -113,6 +113,15 @@
       border-color: transparent;
       color: $dark000;
     }
+    .ivu-modal-header-inner{
+      color: $gray;
+    }
+    .ivu-modal-close{
+      .ivu-icon-ios-close:hover{
+      color:$defaultYellow;
+    }
+    }
+    
   }
   
 .no-footer{

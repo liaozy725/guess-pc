@@ -45,11 +45,17 @@
     <div class="sure-big-btn" @click="sureBtn">充值</div>
     <div class="prompt">提示：近期充值渠道不太稳定，若遇到充值不成功，请多尝试几次或联系客服，给您带来不便，敬请见谅。</div>
     <!-- 支付确认弹框 -->
-    <van-overlay :show="showShopCar" @click="clearModel" />
-    <div class="model-box" v-if="showShopCar">
-      <div class="title-box">支付</div>
+    <!-- <van-overlay :show="showShopCar" @click="clearModel" /> -->
+    <Modal
+        v-model="showShopCar"
+        width="400"
+        class="modal-common"
+        footer-hide
+        title="支付"
+      >
+    <div class="model-box" >
       <p v-if="isFinish">你的支付请求已提交</p>
-      <div class="close-btn" @click="clearModel">×</div>
+      <!-- <div class="close-btn" @click="clearModel">×</div> -->
       <div class="model-text between">
         <div class="model-label">充值方式：</div>
         <div class="model-label" v-if='activeTab=="alipay"'>支付宝</div>
@@ -66,11 +72,19 @@
       </div>
       <div class="sure-big-btn" v-else @click="submit">确认支付</div>
     </div>
+    </Modal>
     <!-- 数字键盘 -->
     <van-number-keyboard v-model="price" extra-key="." :show="show" safe-area-inset-bottom :maxlength="10" @blur="show = false" />
     <!-- 二维码弹框 -->
-    <van-overlay :show="showCode" />
-    <div class="codePop-box" v-if="showCode">
+    <!-- <van-overlay :show="showCode" /> -->
+    <Modal
+        v-model="showCode"
+        width="400"
+        class="modal-showcode-common"
+        footer-hide
+        :closable="false"
+      >
+    <div class="codePop-box">
       <div class="close-box" @click="clearCodeModel"></div>
       <!-- <div class="qrcode" ref="qrcodeContainer"></div> -->
       <!-- <img class="code-img" :src="codeUrl" alt="">
@@ -105,6 +119,7 @@
         </div>
       </div>
     </div>
+    </Modal>
   </div>
   </div>
 </template>
@@ -121,7 +136,7 @@ export default {
     return {
       activeGame: "",
       activeTab: 'alipay', //alipay为支付宝支付，wechant为微信支付
-      showShopCar: false, //遮罩层
+      showShopCar: false, //确认支付遮罩层
       price: null, //金额
       priceList: [
         { number: 100, id: 1 },
@@ -132,8 +147,8 @@ export default {
       ], //金额筛选的项
       show: false, //控制弹出数字键盘
       isFinish: false, //判断是否完成
-      showCode: false,//控制二维码弹框
-      codeUrl: 'https://wallimn.iteye.com',//二维码地址
+      showCode: true,//控制二维码弹框
+      codeUrl: 'http://otcfield.oss-ap-southeast-1.aliyuncs.com/ipfsoss/sysCurrency/2019/12/20/fd8b6515-911b-4e61-a6b4-b89c2eeb34e6.jpg',//二维码地址
       orderNo: null,//订单号
     };
   },
@@ -352,42 +367,29 @@ export default {
     background: $opacity-dark;
     padding: 0 40px;
   }
-  .model-box {
-    position: fixed;
-    width: 89.33333%;
-    min-height: 387px;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    background-color: #252426;
-    border-radius: 5px;
-    padding: 40px;
+ 
+  .prompt {
+    color: $gray;
+    font-size: 20px;
+    margin-top: 28px;
+    line-height: 32px;
+  }
+  
+}
+//弹框样式
+ .model-box {
+    padding: 20px;
     z-index: 20;
-    .title-box {
-      color: $gray;
-      font-size: 29px;
-      text-align: center;
-      margin-bottom: 40px;
-    }
     p {
       color: $gray;
       font-size: 24px;
       text-align: center;
       margin-bottom: 40px;
     }
-    .close-btn {
-      position: absolute;
-      top: 26px;
-      right: 34px;
-      display: block;
-      color: #ffc444;
-      font-size: 50px;
-      font-weight: 300;
-    }
     .model-text {
-      margin-bottom: 45px;
+      margin-bottom: 15px;
       .model-label {
-        font-size: 24px;
+        font-size: 15px;
         color: $gray;
       }
       .model-price {
@@ -395,7 +397,7 @@ export default {
       }
     }
     .sure-big-btn {
-      margin-top: 60px;
+      margin-top: 20px;
     }
     .btn-box {
       .btn {
@@ -412,27 +414,14 @@ export default {
       }
     }
   }
-  .prompt {
-    color: $gray;
-    font-size: 20px;
-    margin-top: 28px;
-    line-height: 32px;
-  }
+  //二维码弹框
   .codePop-box {
-    width: 100%;
-    transform: translate(-50%);
-    top: 140px;
-    position: fixed;
-    width: 89.33333%;
-    left: 50%;
-    background-color: #252426;
-    border-radius: 5px;
     z-index: 20;
     .top-box {
       color: $gray;
-      padding: 22px 42px;
+      padding: 10px 20px;
       background-color: #35333b;
-      font-size: 26px;
+      font-size: 15px;
       margin: 25px 0;
       margin-top: 0;
     }
@@ -440,24 +429,24 @@ export default {
       background-color: #ffc444;
       position: relative;
       text-align: center;
-      padding: 20px 0;
+      padding: 12px 0;
       span {
         color: #000;
-        font-size: 31px;
+        font-size: 16px;
       }
       i {
         display: block;
         position: absolute;
         left: 50%;
-        bottom: -50px;
+        bottom: -31px;
         transform: translate(-50%);
-        border: 25px solid transparent;
-        border-top: 25px solid #ffc444;
+        border: 16px solid transparent;
+        border-top: 16px solid #ffc444;
       }
     }
     .content-box {
       background-color: #35333b;
-      margin-top: 25px;
+      margin-top: 16px;
       .price {
         color: #ff4200;
         font-size: 59px;
@@ -504,38 +493,22 @@ export default {
     }
     .close-box {
       position: absolute;
-      right: -20px;
-      top: -20px;
-      width: 60px;
-      height: 60px;
+      right: -10px;
+      top: -10px;
+      width: 30px;
+      height: 30px;
       background: url("../../assets/icon-close2.png") no-repeat;
       background-size: 100%;
+      cursor: pointer;
     }
-    // .code-img{
-    //   width: 540px;
-    //   height: 540px;
-    // }
-    // p{
-    //   font-size: 28px;
-    //   padding-top: 30px;
-    //   margin-bottom: 0;
-    // }
-    // .close-box{
-    //   position: absolute;
-    //   left: 50%;
-    //   bottom: -120px;
-    //   transform: translateX(-50%);
-    //   width:70px;
-    //   height: 70px;
-    //   background: url('../../assets/icon-close2.png') no-repeat;
-    //   background-size: 100%;
-    // }
   }
-}
 </style>
 
 <style lang="css" scoped>
 .container >>> .van-overlay {
   z-index: 10;
+}
+.modal-showcode-common >>> .ivu-modal-body{
+  padding:0;
 }
 </style>
