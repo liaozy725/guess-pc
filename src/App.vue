@@ -87,6 +87,19 @@
     display: none;
   }
 }
+//iview下拉样式
+.ivu-select-single .ivu-select-selection,.ivu-select .ivu-select-dropdown,.ivu-select-dropdown .ivu-select-item{
+  background-color: transparent;
+  color: $gray;
+}
+.ivu-select .ivu-select-dropdown{
+  background-color: $dark;
+}
+.ivu-select-dropdown .ivu-select-item:hover{
+  background: $border-color;
+  color: $gray;
+  
+}
 //iview弹框样式更改
   .ivu-modal {
     top: 20% !important;

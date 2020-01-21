@@ -42,6 +42,26 @@ const routes = [{
           title: '充值',
         }
       },
+      //用户中心-银行卡详情表
+      {
+        path: '/layout/BankcardInfo',
+        name: 'BankcardInfo',
+        component: () => import('@/views/User/BankcardInfo.vue'),
+        meta: {
+          keepAlive: true,
+          title: '银行卡',
+        }
+      },
+      //用户中心-银行卡编辑
+      {
+        path: '/layout/BankcardEdit',
+        name: 'BankcardEdit',
+        component: () => import('@/views/User/BankcardEdit.vue'),
+        meta: {
+          keepAlive: true,
+          title: '编辑银行卡',
+        }
+      },
     ]
   }
 ]

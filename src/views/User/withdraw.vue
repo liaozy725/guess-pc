@@ -341,6 +341,7 @@ a {
     background-color: #35333b;
     border-radius: 5px;
     width: 100%;
+    padding:0 40px;
     .card-box-l {
       img {
         width: 20px;
