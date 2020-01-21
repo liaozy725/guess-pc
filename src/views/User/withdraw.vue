@@ -306,7 +306,6 @@ export default {
         if (res.retCode == 0) {
           this.$Message.success({
             duration: 2,
-            forbidClick: true, // 禁用背景点击
             content: "操作成功！"
           });
           this.showShopCar = false;

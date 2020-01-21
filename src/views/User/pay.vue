@@ -27,8 +27,6 @@
       </div>
       <div class="content-body">
         <div class="input-box">
-          <!-- <input type="number" v-model="price" placeholder="请输入充值金额"> -->
-          <!-- <van-field readonly clickable :value="price" placeholder="请输入充值金额" @touchstart.native.stop="show = true" /> -->
            <InputNumber
               :max="10000"
               placeholder="请输入充值金额"
@@ -45,17 +43,18 @@
     <div class="sure-big-btn" @click="sureBtn">充值</div>
     <div class="prompt">提示：近期充值渠道不太稳定，若遇到充值不成功，请多尝试几次或联系客服，给您带来不便，敬请见谅。</div>
     <!-- 支付确认弹框 -->
-    <!-- <van-overlay :show="showShopCar" @click="clearModel" /> -->
     <Modal
         v-model="showShopCar"
         width="400"
         class="modal-common"
         footer-hide
         title="支付"
+        :mask-closable="false"
+        :closable="false"
       >
     <div class="model-box" >
       <p v-if="isFinish">你的支付请求已提交</p>
-      <!-- <div class="close-btn" @click="clearModel">×</div> -->
+      <Icon class="close-btn" @click="clearModel" type="ios-close" />
       <div class="model-text between">
         <div class="model-label">充值方式：</div>
         <div class="model-label" v-if='activeTab=="alipay"'>支付宝</div>
@@ -73,21 +72,17 @@
       <div class="sure-big-btn" v-else @click="submit">确认支付</div>
     </div>
     </Modal>
-    <!-- 数字键盘 -->
-    <van-number-keyboard v-model="price" extra-key="." :show="show" safe-area-inset-bottom :maxlength="10" @blur="show = false" />
     <!-- 二维码弹框 -->
-    <!-- <van-overlay :show="showCode" /> -->
     <Modal
         v-model="showCode"
         width="400"
         class="modal-showcode-common"
         footer-hide
         :closable="false"
+        :mask-closable="false"
       >
     <div class="codePop-box">
       <div class="close-box" @click="clearCodeModel"></div>
-      <!-- <div class="qrcode" ref="qrcodeContainer"></div> -->
-      <!-- <img class="code-img" :src="codeUrl" alt="">
       <p>请扫码支付，长按保存二维码</p> -->
       <div class="top-box">订单号：{{orderNo}}</div>
       <div class="top-text-box">
@@ -127,8 +122,6 @@
 <script>
 // import QRCode from 'qrcodejs2';//二维码生成插件
 import { uploadUserInfo } from '@/utils/utils.js';
-// let iconSuccess = require('@/assets/icon-success.png');
-// let iconWarning = require('@/assets/icon-warning.png');
 let btnCanClick = true;
 export default {
   name: "pay",
@@ -147,8 +140,8 @@ export default {
       ], //金额筛选的项
       show: false, //控制弹出数字键盘
       isFinish: false, //判断是否完成
-      showCode: true,//控制二维码弹框
-      codeUrl: 'http://otcfield.oss-ap-southeast-1.aliyuncs.com/ipfsoss/sysCurrency/2019/12/20/fd8b6515-911b-4e61-a6b4-b89c2eeb34e6.jpg',//二维码地址
+      showCode: false,//控制二维码弹框
+      codeUrl: '',//二维码地址
       orderNo: null,//订单号
     };
   },
@@ -156,7 +149,6 @@ export default {
     this.$store.commit("setPageTitle", "充值");
   },
   mounted() {
-    // this.showQRCode();
     this.uploadUserInfo();
   },
   methods: {
@@ -164,18 +156,6 @@ export default {
     //返回
     back() {
       window.history.back(-1); 
-    },
-    //生成二维码
-    // vue对象的一个method
-    showQRCode() {
-      var qrcode = new QRCode(this.$refs.qrcodeContainer, {
-        text: "https://wallimn.iteye.com",
-        width: 260,
-        height: 260,
-        colorDark: "#000000",
-        colorLight: "#ffffff",
-        correctLevel: QRCode.CorrectLevel.H
-      });
     },
     //选择支付方式
     changePay(num) {
@@ -201,25 +181,25 @@ export default {
             this.showShopCar = true;
             this.isFinish = false;
           } else {
-            this.$toast({
-              duration: 1000,
+            this.$Message.warning({
+              duration: 2,
               forbidClick: true, // 禁用背景点击
-              message: "输入金额不能小于100"
+              content: "输入金额不能小于100"
             });
           }
         } else {
-          this.$toast({
-            duration: 1000,
+          this.$Message.warning({
+            duration: 2,
             forbidClick: true, // 禁用背景点击
-            message: "输入金额不能大于10000"
+            content: "输入金额不能大于10000"
           });
 
         }
       } else {
-        this.$toast({
-          duration: 1000,
+        this.$Message.warning({
+          duration: 2,
           forbidClick: true, // 禁用背景点击
-          message: "请输入充值金额"
+          content: "请输入充值金额"
         });
       }
     },
@@ -254,7 +234,7 @@ export default {
       this.$http.post('orderInfo/paid', params).then(res => {
         btnCanClick = true;
         if (res.retCode == 0) {
-          this.$toast.success({ duration: 1000,forbidClick: true, message: "支付成功！" });
+          this.$Message.success({ duration: 2, content: "支付成功！" });
           this.$router.replace({ path: "/layout/home" });
         }
       })
@@ -285,6 +265,7 @@ export default {
       float: left;
       cursor: pointer;
       position: relative;
+      overflow:hidden;
       
       i {
         background: url("../../assets/greensaojiao.png") no-repeat;
@@ -301,13 +282,13 @@ export default {
       margin-right: 10px;
       background-color: #479ee3;
       img {
-        height: 48px;
+        height: 38px;
       }
     }
     .wx-img {
       background-color: #5ecc3e;
       img {
-        height: 48px;
+        height: 38px;
       }
     }
     .active {
@@ -370,7 +351,7 @@ export default {
  
   .prompt {
     color: $gray;
-    font-size: 20px;
+    font-size: 17px;
     margin-top: 28px;
     line-height: 32px;
   }
@@ -382,9 +363,18 @@ export default {
     z-index: 20;
     p {
       color: $gray;
-      font-size: 24px;
+      font-size: 17px;
       text-align: center;
       margin-bottom: 40px;
+    }
+    .close-btn {
+      position: absolute;
+      top: 4px;
+      right: 6px;
+      display: block;
+      color: #ffc444;
+      font-size: 40px;
+      cursor: pointer;
     }
     .model-text {
       margin-bottom: 15px;
@@ -403,7 +393,7 @@ export default {
       .btn {
         border: solid 2px #ffc444;
         width: 49%;
-        line-height: 76px;
+        line-height: 51px;
         margin-top: 15px;
       }
       .sure-btn {
@@ -449,44 +439,44 @@ export default {
       margin-top: 16px;
       .price {
         color: #ff4200;
-        font-size: 59px;
+        font-size: 28px;
         text-align: center;
-        padding: 40px 0;
+        padding: 12px 0;
       }
       .code-box {
         text-align: center;
-        padding-bottom: 50px;
+        padding-bottom: 30px;
         img {
-          width: 347px;
-          height: 347px;
+          width: 220px;
+          height: 220px;
         }
       }
       .top-text-box {
         span {
-          font-size: 31px;
+          font-size: 17px;
         }
       }
       .term-box {
-        padding-top: 31px;
+        padding-top: 20px;
         .list-box {
-          padding-bottom: 28px;
-          padding-left: 110px;
+          padding-bottom: 13px;
+          padding-left: 70px;
           p {
-            width: 44px;
-            height: 44px;
+            width: 25px;
+            height: 25px;
             background-color: #ffc444;
             border-radius: 6px;
-            font-size: 33px;
+            font-size: 17px;
             color: #000;
-            line-height: 44px;
+            line-height: 25px;
             text-align: center;
             display: inline-block;
             margin-bottom: 0;
           }
           span {
-            padding-left: 28px;
+            padding-left: 10px;
             color: $gray;
-            font-size: 33px;
+            font-size: 15px;
           }
         }
       }
