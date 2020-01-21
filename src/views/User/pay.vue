@@ -125,7 +125,7 @@
 </template>
 
 <script>
-import QRCode from 'qrcodejs2';//二维码生成插件
+// import QRCode from 'qrcodejs2';//二维码生成插件
 import { uploadUserInfo } from '@/utils/utils.js';
 // let iconSuccess = require('@/assets/icon-success.png');
 // let iconWarning = require('@/assets/icon-warning.png');

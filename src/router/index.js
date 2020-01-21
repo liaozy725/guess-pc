@@ -16,7 +16,12 @@ const routes = [{
         path: '/layout/home',
         name: '首页',
         component: () => import('../views/Home/Home.vue'),
-
+      },
+      // 竞猜详情
+      {
+        path: '/layout/GuessDetail',
+        name: '竞猜详情',
+        component: () => import('../views/Home/GuessDetail.vue'),
       },
       //用户中心-提现
       {
