@@ -22,10 +22,9 @@ export default {
       type: String,
       default: '已结束'
     },
-    // callback: {
-    //   type: Function,
-    //   default: ''
-    // }
+    callback: {
+      type: Function
+    }
   },
   mounted() {
     this.countdowm(this.endTime);
@@ -36,7 +35,6 @@ export default {
       let timer = setInterval(function () {
         let nowTime = new Date();
         let endTime = timestamp;
-
         let t = endTime - nowTime.getTime();
         if (t > 0) {
           let day = Math.floor(t / 86400000);
@@ -60,15 +58,15 @@ export default {
         } else {
           clearInterval(timer);
           self.content = self.endText;
-          // self._callback();
+          self._callback();
         }
       }, 1000);
     },
-    // _callback() {
-    //   if (this.callback && this.callback instanceof Function) {
-    //     this.callback(...this);
-    //   }
-    // }
+    _callback() {
+      if (this.callback && this.callback instanceof Function) {
+        this.callback(...this);
+      }
+    }
   }
 }
 </script>
