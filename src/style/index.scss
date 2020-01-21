@@ -1,7 +1,7 @@
 @import './mixin.scss';
 @import './transition.scss';
 @import './btn.scss';
-
+@import './color.scss';
 html,
 body,
 div,
@@ -148,8 +148,67 @@ a:hover {
 div:focus {
   outline: none;
 }
+img {
+  -o-object-fit: cover;
+  object-fit: cover;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+-webkit-appearance: none;
+}
+input[type="number"]{
+-moz-appearance: textfield;
+}
+input::-webkit-input-placeholder,
+  textarea::-webkit-input-placeholder {
+    /* WebKit browsers */
+    color: #777;
+  }
+ 
+  input:-moz-placeholder,
+  textarea:-moz-placeholder {
+    /* Mozilla Firefox 4 to 18 */
+    color: #777;
+  }
+ 
+  input::-moz-placeholder,
+  textarea::-moz-placeholder {
+    /* Mozilla Firefox 19+ */
+    color: #777;
+  }
+ 
+  input:-ms-input-placeholder,
+  textarea:-ms-input-placeholder {
+    /* Internet Explorer 10+ */
+    color: #777;
+  }
+.container {
+  height: 100%;
+}
+.clearfix::before,
+.clearfix::after {
+	content: "";
+	height: 0;
+	line-height: 0;
+	display: block;
+	visibility: hidden;
+	clear: both;
+}
 
-.fr {
+.clearfix:after {
+	clear: both;
+}
+
+.clearfix {
+	*zoom: 1;
+	/*IE/7/6*/
+}
+
+.between{
+  display: flex;
+  justify-content: space-between;
+}
+.fr,.rt {
   float: right;
 }
 
@@ -455,4 +514,17 @@ input[type="number"] {
     vertical-align: middle;
   }
 
+}
+/*公共确认按钮*/
+.sure-big-btn{
+  height: 51px;
+  background-color: $defaultYellow;
+  border-radius: 5px;
+  width: 100%;
+  color: #000;
+  font-size: 17px;
+  text-align: center;
+  line-height: 51px;
+  margin-top: 30px;
+  cursor: pointer;
 }

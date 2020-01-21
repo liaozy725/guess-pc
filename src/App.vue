@@ -41,5 +41,64 @@
     font-size: 18px;
     border: 0;
   }
+
+  /*iview-数字inputNumber样式*/
+  .ivu-input-number {
+    background-color: transparent;
+    border: none;
+    width: 87%;
+    height: 68px;
+    line-height: 68px;
+  }
+  .ivu-input-number-input-wrap {
+    height: 68px;
+  }
+  .ivu-input-number:hover {
+    border: none;
+  }
+  .ivu-input-number-focused {
+    box-shadow: none;
+  }
+  .ivu-input-number-input {
+    color: $gray;
+    background-color: transparent;
+    font-size: 17px;
+    height: 68px;
+    line-height: 68px;
+  }
+  .ivu-input-number-handler-wrap {
+    display: none;
+  }
+}
+//iview弹框样式更改
+  .ivu-modal {
+    top: 20% !important;
+    .ivu-modal-content {
+      background-color: $dark;
+      color: $gray;
+    }
+    .ivu-modal-confirm-head-title{
+      color: $gray;
+    }
+    .ivu-modal-confirm-body{
+      color: $gray;
+    }
+    .ivu-btn-text{
+      color: $gray;
+    }
+    .ivu-btn-text:hover{
+      background-color: transparent;
+      color: $gray;
+    }
+    
+    .ivu-btn-primary,.ivu-btn-primary:hover{
+      background-color: $defaultYellow;
+      border-color: transparent;
+      color: $dark000;
+    }
+  }
+  
+.no-footer{
+
 }
 </style>
