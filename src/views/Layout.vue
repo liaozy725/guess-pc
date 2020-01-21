@@ -112,7 +112,7 @@ export default {
       align-items: center;
       .header-box {
         display: inline-block;
-        padding: 0 40px;
+        padding: 0 45px;
         cursor: pointer;
         &:not(:first-child) {
           border-left: 2px solid #9e8558;

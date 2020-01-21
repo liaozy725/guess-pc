@@ -69,12 +69,13 @@ try {
 } catch (error) {
 
 }
+
 // // 过滤器
 import * as myFilter from './utils/filter'
-
 Object.keys(myFilter).forEach(key => {
     Vue.filter(key, myFilter[key])
 })
+
 new Vue({
   router,
   store,
