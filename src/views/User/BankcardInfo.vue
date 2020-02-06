@@ -50,6 +50,10 @@ export default {
     this.getBankInfo();
   },
   methods: {
+    //返回
+    back() {
+      window.history.back(-1); 
+    },
     //跳转编辑页面
     edit(){
       this.$router.push({path:'/layout/BankcardEdit',query:{id:this.bankInfo.id||null}})

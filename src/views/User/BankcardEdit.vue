@@ -1,139 +1,73 @@
 <template>
   <div class="container">
     <div class="top-item-box" @click="back">
-      <Icon type="md-arrow-back" /><span>返回</span>
+      <Icon type="md-arrow-back" />
+      <span>返回</span>
     </div>
     <div class="box-pack">
       <div class="list-com">
         <div class="list-box">
           <div class="label-text">开户名称</div>
           <div class="label-content">
-            <input
-              type="text"
-              v-model="bankUserName"
-              @blur="windowScrollBack"
-              placeholder="请输入姓名"
-            />
+            <input type="text" v-model="bankUserName" @blur="windowScrollBack" placeholder="请输入姓名" />
           </div>
         </div>
         <div class="list-box">
           <div class="label-text">银行卡号</div>
           <div class="label-content">
-            <input
-              type="text"
-              v-model="bankNo"
-              @blur="windowScrollBack"
-              placeholder="请输入银行卡号"
-            />
+            <input type="text" v-model="bankNo" @blur="windowScrollBack" placeholder="请输入银行卡号" />
           </div>
         </div>
         <div class="list-box">
           <div class="label-text">开户省份</div>
           <div class="label-content change-content">
-            <!-- <div class="gray-text check-text" v-if="!!province">{{province}}</div>
-        <div class="gray-text" v-else>请选择省份</div> -->
-            <Select v-model="provinceId" placeholder="请选择省份" @on-change='provinceChange'>
-              <Option v-for="(item, index) in provinceList" :value="item.id" :key="index" >{{ item.name }}</Option>
+            <Select v-model="provinceId" placeholder="请选择省份" @on-change="provinceChange">
+              <Option
+                v-for="(item, index) in provinceList"
+                :value="item.id"
+                :key="index"
+              >{{ item.name }}</Option>
             </Select>
           </div>
         </div>
-        <div class="list-box" @click="changeCity">
+        <div class="list-box">
           <div class="label-text">开户城市</div>
           <div class="label-content change-content">
-            <!-- <div class="gray-text check-text" v-if="!!city">{{ city }}</div>
-            <div class="gray-text" v-else>请选择城市</div>
-            <div class="img-box">
-              <img src="../../assets/icon-down.png" alt />
-            </div> -->
-            <Select v-model="cityId" placeholder="请选择城市">
-              <Option v-for="(item, index) in cityList" :value="item.id" :key="index" >{{ item.name }}</Option>
+            <Select v-model="cityId" placeholder="请选择城市" @on-change="cityChange">
+              <Option
+                v-for="(item, index) in cityList"
+                :value="item.id"
+                :key="index"
+              >{{ item.name }}</Option>
             </Select>
           </div>
         </div>
-        <div class="list-box" @click="changeBank">
+        <!-- @click="changeBank" -->
+        <div class="list-box" >
           <div class="label-text">开户银行</div>
           <div class="label-content change-content">
             <!-- <div class="gray-text">请选择银行</div> -->
             <!-- <div class="gray-text check-text">工商银行</div> -->
-            <input
-              type="text"
-              v-model="bankName"
-              @blur="windowScrollBack"
-              placeholder="请输入开户银行"
-            />
+            <input type="text" v-model="bankName" @blur="windowScrollBack" placeholder="请输入开户银行" />
             <div class="img-box">
-              <img src="../../assets/icon-down.png" alt />
             </div>
           </div>
         </div>
         <div class="list-box">
           <div class="label-text">开户支行</div>
           <div class="label-content">
-            <input
-              type="text"
-              v-model="bankBranch"
-              @blur="windowScrollBack"
-              placeholder="请输入支行名称"
-            />
+            <input type="text" v-model="bankBranch" @blur="windowScrollBack" placeholder="请输入支行名称" />
           </div>
         </div>
       </div>
-      <div class="sure-big-btn" v-if="!!$route.query.id" @click="edit">
-        确认编辑
-      </div>
+      <div class="sure-big-btn" v-if="!!$route.query.id" @click="edit">确认编辑</div>
       <div class="sure-big-btn" v-else @click="edit">确认绑定</div>
-      <!-- 省选择弹框 -->
-      <!-- <van-popup
-        class="bankcard-model"
-        v-model="model1"
-        position="bottom"
-        :style="{ height: '264px', backgroundColor: '#35333b' }"
-      >
-        <div class="picker-box">
-          <van-picker
-            :columns="provinceList"
-            value-key="name"
-            :default-index="provinceIndex"
-            show-toolbar
-            title="选择省"
-            @cancel="onCancelModel1"
-            @confirm="onConfirmModel1"
-          />
-        </div>
-      </van-popup> -->
-      <!-- 市选择弹框 -->
-      <!-- <van-popup
-        class="bankcard-model"
-        v-model="model2"
-        position="bottom"
-        :style="{ height: '264px', backgroundColor: '#35333b' }"
-      >
-        <div class="picker-box">
-          <van-picker
-            :columns="cityList"
-            value-key="name"
-            :default-index="cityIndex"
-            show-toolbar
-            title="选择城市"
-            @cancel="onCancelModel2"
-            @confirm="onConfirmModel2"
-          />
-        </div>
-      </van-popup> -->
-      <!-- 开户支行选择弹框 -->
-      <!-- <van-popup class="bankcard-model" v-model="model3" position="bottom" :style="{ height: '264px',backgroundColor: '#35333b', }">
-      <div class="picker-box">
-        <van-picker :columns="columns"  show-toolbar title="选择开户支行" @cancel="onCancelModel3" @confirm="onConfirmModel3" />
-      </div>
-    </van-popup>-->
     </div>
   </div>
 </template>
 
 <script>
 import { regNum } from "@/utils/utils.js";
-// let iconSuccess = require('@/assets/icon-success.png');
-// let iconWarning = require('@/assets/icon-warning.png');
 export default {
   name: "BankcardInfo",
   data() {
@@ -150,14 +84,10 @@ export default {
       cityId: null, //城市id
       bankId: null, //开户银行id
       bankBranch: "", //开户支行
-      model1: false, //控制省弹框
-      model2: false, //控制市弹框
       model3: false, //控制开户行弹框
       provinceList: [], //省列表
       cityList: [], //市列表
       bankList: [], //开户银行列表
-      provinceIndex: 0, //默认省选中的值
-      cityIndex: 0 //默认市选中的值
     };
   },
   created() {
@@ -169,7 +99,6 @@ export default {
     }
   },
   mounted() {
-    this.changeProvince();
   },
   methods: {
     // 键盘收起，页面回弹
@@ -180,13 +109,24 @@ export default {
     onInputChange(key) {
       this.key = this.key.replace(/[^0-9]+/g, "");
     },
-    //获取省数据
-    getProvince() {
-      this.getArea(1, 1);
-    },
     // 省份改变
-    provinceChange(){
-      this.getArea(this.provinceId,2)
+    provinceChange(row) {
+      this.provinceList.map((val, i) => {
+        if (val.id == row) {
+          this.province = val.name;
+        }
+      });
+      console.log(this.province, "325346");
+      this.getArea(this.provinceId, 2);
+    },
+    //市改变
+    cityChange(row) {
+      console.log(row, "325346");
+      this.cityList.map((val, i) => {
+        if (val.id == row) {
+          this.city = val.name;
+        }
+      });
     },
     //获取银行卡信息
     getBankInfo() {
@@ -223,7 +163,6 @@ export default {
               //编辑回填
               res.data.map((val, i) => {
                 if (val.name == this.province) {
-                  this.provinceIndex = i;
                   this.provinceId = val.id;
                   this.getArea(this.provinceId, 2);
                 }
@@ -236,7 +175,8 @@ export default {
               //编辑回填
               res.data.map((val, i) => {
                 if (val.name == this.city) {
-                  this.cityIndex = i;
+                  // this.cityIndex = i;
+                  this.cityId = val.id;
                 }
               });
             }
@@ -247,45 +187,39 @@ export default {
     //点击确认编辑，绑定
     edit() {
       if (!this.bankUserName) {
-        return this.$toast({
-          duration: 1000,
-          forbidClick: true, // 禁用背景点击
-          message: "请输入正确的开户名称"
+        return this.$Message.warning({
+          duration: 2,
+          content: "请输入正确的开户名称"
         });
       }
       if (!regNum(this.bankNo)) {
-        return this.$toast({
-          duration: 1000,
-          forbidClick: true, // 禁用背景点击
-          message: "请输入正确的银行卡号"
+        return this.$Message.warning({
+          duration: 2,
+          content: "请输入正确的银行卡号"
         });
       }
-      if (!this.province) {
-        return this.$toast({
-          duration: 1000,
-          forbidClick: true, // 禁用背景点击
-          message: "请输入正确的省份"
+      if (!this.provinceId) {
+        return this.$Message.warning({
+          duration: 2,
+          content: "请输入正确的省份"
         });
       }
-      if (!this.city) {
-        return this.$toast({
-          duration: 1000,
-          forbidClick: true, // 禁用背景点击
-          message: "请输入正确的城市"
+      if (!this.cityId) {
+        return this.$Message.warning({
+          duration: 2,
+          content: "请输入正确的城市"
         });
       }
       if (!this.bankName) {
-        return this.$toast({
-          duration: 1000,
-          forbidClick: true, // 禁用背景点击
-          message: "请输入正确的开户银行"
+        return this.$Message.warning({
+          duration: 2,
+          content: "请输入正确的开户银行"
         });
       }
       if (!this.bankBranch) {
-        return this.$toast({
-          duration: 1000,
-          forbidClick: true, // 禁用背景点击
-          message: "请输入正确的开户支行"
+        return this.$Message.warning({
+          duration: 2,
+          content: "请输入正确的开户支行"
         });
       }
       let params = {
@@ -299,24 +233,13 @@ export default {
       };
       this.$http.post("userBank/saveOrUpdate", params).then(res => {
         if (res.retCode == 0) {
-          this.$toast.success({
-            duration: 1000,
-            forbidClick: true, // 禁用背景点击
-            message: "操作成功！"
+          this.$Message.success({
+            duration: 2,
+            content: "操作成功！"
           });
           this.$router.go(-1); //返回上一层
         }
       });
-    },
-    //点击省
-    changeProvince() {
-      this.getProvince();
-      console.log(this.provinceIndex);
-      // this.model1 = true;
-    },
-    //取消省的弹框
-    onCancelModel1() {
-      this.model1 = false;
     },
     //确认省的弹框
     onConfirmModel1(value, index) {
@@ -329,33 +252,21 @@ export default {
       this.getArea(this.provinceId, 2);
       this.model1 = false;
     },
-    //点击市
-    changeCity() {
-      this.model2 = true;
-    },
-    //取消市的弹框
-    onCancelModel2() {
-      this.model2 = false;
-    },
-    //确认市的弹框
-    onConfirmModel2(value, index) {
-      this.cityIndex = index;
-      this.city = value.name;
-      this.model2 = false;
-    },
     //点击开户银行
     changeBank() {
       this.model3 = true;
     },
-    //取消省的弹框
+    //取消开户银行的弹框
     onCancelModel3() {
       this.model3 = false;
     },
-    //确认省的弹框
+    //确认开户银行的弹框
     onConfirmModel3(value, index) {
       this.model3 = false;
     },
-    back() {}
+    back() {
+      window.history.back(-1); 
+    }
   }
 };
 </script>

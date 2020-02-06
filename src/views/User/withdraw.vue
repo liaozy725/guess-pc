@@ -43,8 +43,8 @@
           </div>
         </div>
         <div class="content-body content-b between">
-          <p class="content-label" v-if="userInfo">
-            当前可提现金额 {{ userInfo.userBalance || 0 }}
+          <p class="content-label" v-if="$store.state.userInfo">
+            当前可提现金额 {{ $store.state.userInfo.userBalance || 0 }}
           </p>
 
           <div class></div>
@@ -137,12 +137,6 @@ export default {
     this.getBankInfo(); //银行卡信息
   },
   watch: {
-    // password(nVal, oVal) {
-    //   if (nVal.length >= 6) {
-    //     console.log(nVal);
-    //     this.submit();
-    //   }
-    // }
   },
   methods: {
     uploadUserInfo: uploadUserInfo, //获取用户详情
@@ -251,10 +245,6 @@ export default {
       if (!!this.price) {
         if (parseFloat(this.price) <= 100000) {
           if (parseFloat(this.price) >= 50) {
-            console.log(
-              parseFloat(this.userInfo.userBalance),
-              parseFloat(this.price)
-            );
             if (
               parseFloat(this.userInfo.userBalance) >= parseFloat(this.price)
             ) {
@@ -304,6 +294,8 @@ export default {
       };
       this.$http.post("userWithdrawDetail/save", params).then(res => {
         if (res.retCode == 0) {
+          this.password = '';
+          this.price = null
           this.$Message.success({
             duration: 2,
             content: "操作成功！"
@@ -311,7 +303,6 @@ export default {
           this.showShopCar = false;
           this.showKeyboard = false;
           this.uploadUserInfo();
-          this.$router.go(-1); //返回上一层
         } else {
           this.password = "";
         }

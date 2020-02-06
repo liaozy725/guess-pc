@@ -7,18 +7,17 @@
 <style lang="scss">
 @import "./style/index.scss"; // 全局自定义的css···样式
 @import "./style/iconfont/iconfont.css";
-.top-item-box{
-  margin-top:10px;
+.top-item-box {
+  margin-top: 10px;
   cursor: pointer;
-  span{
-    color:$gray;
-    font-size:17px;
-
+  span {
+    color: $gray;
+    font-size: 17px;
   }
-  i{
-    font-size:22px;
-    margin-left:10px;
-    color:$gray;
+  i {
+    font-size: 22px;
+    margin-left: 10px;
+    color: $gray;
   }
 }
 .box-pack {
@@ -88,56 +87,86 @@
   }
 }
 //iview下拉样式
-.ivu-select-single .ivu-select-selection,.ivu-select .ivu-select-dropdown,.ivu-select-dropdown .ivu-select-item{
+.ivu-select-single .ivu-select-selection,
+.ivu-select .ivu-select-dropdown,
+.ivu-select-dropdown .ivu-select-item {
   background-color: transparent;
   color: $gray;
 }
-.ivu-select .ivu-select-dropdown{
+.ivu-select .ivu-select-dropdown {
   background-color: $dark;
 }
-.ivu-select-dropdown .ivu-select-item:hover{
+.ivu-select-dropdown .ivu-select-item:hover {
   background: $border-color;
   color: $gray;
-  
 }
 //iview弹框样式更改
-  .ivu-modal {
-    top: 20% !important;
-    .ivu-modal-content {
-      background-color: $dark;
-      color: $gray;
-    }
-    .ivu-modal-confirm-head-title{
-      color: $gray;
-    }
-    .ivu-modal-confirm-body{
-      color: $gray;
-    }
-    .ivu-btn-text{
-      color: $gray;
-    }
-    .ivu-btn-text:hover{
-      background-color: transparent;
-      color: $gray;
-    }
-    
-    .ivu-btn-primary,.ivu-btn-primary:hover{
-      background-color: $defaultYellow;
-      border-color: transparent;
-      color: $dark000;
-    }
-    .ivu-modal-header-inner{
-      color: $gray;
-    }
-    .ivu-modal-close{
-      .ivu-icon-ios-close:hover{
-      color:$defaultYellow;
-    }
-    }
-    
+.ivu-modal {
+  top: 20% !important;
+  .ivu-modal-content {
+    background-color: $dark;
+    color: $gray;
   }
-  
-.no-footer{
+  .ivu-modal-confirm-head-title {
+    color: $gray;
+  }
+  .ivu-modal-confirm-body {
+    color: $gray;
+  }
+  .ivu-btn-text {
+    color: $gray;
+  }
+  .ivu-btn-text:hover {
+    background-color: transparent;
+    color: $gray;
+  }
 
+  .ivu-btn-primary,
+  .ivu-btn-primary:hover {
+    background-color: $defaultYellow;
+    border-color: transparent;
+    color: $dark000;
+  }
+  .ivu-modal-header-inner {
+    color: $gray;
+  }
+  .ivu-modal-close {
+    .ivu-icon-ios-close:hover {
+      color: $defaultYellow;
+    }
+  }
+}
+
+.no-footer {
+}
+
+// tabs
+.ivu-tabs {
+  .ivu-tabs-nav {
+    display: flex;
+    width: 100%;
+    .ivu-tabs-tab {
+      flex: 1;
+      color: #fff;
+      text-align: center;
+    }
+    .ivu-tabs-ink-bar {
+      background: $yellow;
+      height: 4px;
+      border-radius: 2px;
+    }
+  }
+}
+
+.load-more {
+  text-align: center;
+  background: $border-color;
+  padding: 10px 0;
+  border-radius: 4px;
+  color: $darkfff;
+  cursor: pointer;
+  &.disabled {
+    cursor: not-allowed;
+  }
 }
 </style>
