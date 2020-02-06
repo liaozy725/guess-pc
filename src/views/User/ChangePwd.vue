@@ -8,19 +8,19 @@
     <div class="list-box">
       <div class="label-text">旧密码：</div>
       <div class="label-content">
-        <Input type="password" maxlength="12" minlength="6"  v-model="formData.oldPassword" :change="onInputChange('oldPassword')"  placeholder="请输入旧密码" />
+        <input type="password" maxlength="12" minlength="6"  v-model="formData.oldPassword" :change="onInputChange('oldPassword')"  placeholder="请输入旧密码" />
       </div>
     </div>
     <div class="list-box">
       <div class="label-text">新密码：</div>
       <div class="label-content">
-        <Input type="password" maxlength="12" minlength="6"  v-model="formData.newPassword" :change="onInputChange('newPassword')"  placeholder="6-12位字母或数字" />
+        <input type="password" maxlength="12" minlength="6"  v-model="formData.newPassword" :change="onInputChange('newPassword')"  placeholder="6-12位字母或数字" />
       </div>
     </div>
     <div class="list-box">
       <div class="label-text">新密码：</div>
       <div class="label-content">
-        <Input type="password" maxlength="12" minlength="6"  v-model="formData.confirmPassword" :change="onInputChange('confirmPassword')"  placeholder="请再一次输入您的新密码" />
+        <input type="password" maxlength="12" minlength="6"  v-model="formData.confirmPassword" :change="onInputChange('confirmPassword')"  placeholder="请再一次输入您的新密码" />
       </div>
     </div>
 
@@ -99,9 +99,9 @@ a {
     .label-text,
     .label-content {
       color: $gray;
-      font-size: 14px;
-      height: 50px;
-      line-height: 50px;
+      font-size: 15px;
+      height: 68px;
+      line-height: 68px;
     }
     .label-text {
       width: 100px;
@@ -113,33 +113,11 @@ a {
       text-overflow: ellipsis;
       flex: 1;
       input {
-        width: 100%;
-        font-size: 14px;
-      }
-      .gray-text,
-      .check-text {
-        font-size: 14px;
-        color: #777;
-      }
-      .check-text {
+        background-color: transparent;
         color: $gray;
-      }
-      &.label-content-code {
-        display: flex;
-        align-items: center;
-        input{
-          flex:1;
-        }
-        .send-code {
-          font-size: 14px;
-          border-radius: 4px;
-          border:1px solid $yellow;
-          color: $yellow;
-          height: 30px;
-          line-height: 28px;
-          width: 80px;
-          text-align: center;
-        }
+        font-size: 15px;
+        outline: none;
+        height: 40px;
       }
     }
   }

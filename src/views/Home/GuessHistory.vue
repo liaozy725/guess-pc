@@ -75,6 +75,7 @@ export default {
     },
     // 获取投注历史
     getList() {
+      if(this.finished) return;
       let params = {
         token: this.$store.state.token,
         matchResult: this.activeTab

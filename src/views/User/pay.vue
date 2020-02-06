@@ -83,7 +83,7 @@
       >
     <div class="codePop-box">
       <div class="close-box" @click="clearCodeModel"></div>
-      <p>请扫码支付，长按保存二维码</p> -->
+      <!-- <p>请扫码支付，长按保存二维码</p>  -->
       <div class="top-box">订单号：{{orderNo}}</div>
       <div class="top-text-box">
         <span>支付确认时，确保与订单支付金额保持一致</span>

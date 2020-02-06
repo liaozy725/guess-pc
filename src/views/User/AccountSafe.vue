@@ -18,12 +18,12 @@
         <img src="../../assets/icon-l.png" class="icon-r" alt />
       </router-link>
     </div>
-    <div class="list-box">
+    <!-- <div class="list-box">
       <div class="label-text">支付密码</div>
       <router-link to="/layout/ChangePayPwd" class="label-content">
         <img src="../../assets/icon-l.png" class="icon-r" alt />
       </router-link>
-    </div>
+    </div> -->
     </div>
   </div>
 </template>
@@ -65,9 +65,9 @@ a {
     .label-text,
     .label-content {
       color: $gray;
-      font-size: 14px;
-      height: 50px;
-      line-height: 50px;
+      font-size: 15px;
+      height: 68px;
+      line-height: 68px;
     }
     .label-text {
       width: 100px;
@@ -81,7 +81,7 @@ a {
       flex: 1;
       input {
         width: 100%;
-        font-size: 27px;
+        font-size: 15px;
       }
       .gray-text,
       .check-text {
@@ -95,14 +95,14 @@ a {
         margin-top: 15px;
       }
       .icon-r {
-        width: 10px;
+        width: 7px;
         transform: rotate(180deg);
         vertical-align: middle;
         margin-left: 10px;
       }
       span {
         vertical-align: middle;
-        font-size: 14px;
+        font-size: 15px;
       }
     }
   }
