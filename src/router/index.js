@@ -3,7 +3,13 @@ import VueRouter from 'vue-router'
 
 Vue.use(VueRouter)
 
-const routes = [{
+const routes = [
+  {
+    path:'/',
+    name:'首页',
+    redirect:'/layout/home'
+  },
+  {
     path: '/login',
     name: '登录',
     component: () => import( /* webpackChunkName: "about" */ '../views/Login.vue')
@@ -12,7 +18,9 @@ const routes = [{
     path: '/layout',
     name: '',
     component: () => import('../views/Layout.vue'),
-    children: [{
+    redirect: '/layout/home',
+    children: [
+      {
         path: '/layout/home',
         name: '首页',
         component: () => import('../views/Home/Home.vue'),
@@ -120,6 +128,16 @@ const routes = [{
         meta: {
           keepAlive: true,
           title: '修改密码',
+        }
+      },
+      //用户中心-系统消息
+      {
+        path: '/layout/SystemMsg',
+        name: 'SystemMsg',
+        component: () => import('@/views/User/SystemMsg.vue'),
+        meta: {
+          keepAlive: true,
+          title: '系统消息',
         }
       },
     ]

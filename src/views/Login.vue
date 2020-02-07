@@ -17,7 +17,7 @@
             <span @click="isLogin=false">账号注册</span>
             <span>忘记密码</span>
           </div>
-          <Button long @click="login">登录</Button>
+          <Button long @click="login" @keyup.enter='login'>登录</Button>
           <router-link to="/layout/home" class="back">我先逛逛</router-link>
         </Form>
       </div>

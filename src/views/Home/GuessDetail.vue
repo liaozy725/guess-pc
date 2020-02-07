@@ -17,7 +17,7 @@
           <span>{{guessData.team[1].teamName}}</span>
         </div>
       </div>
-      <div class="header-r">
+      <div class="header-r" @click="showUserMenu=true">
         <img src="../../assets/icon-user.png" alt="">
         <span v-if="$store.state.userInfo">{{$store.state.userInfo.accountLogin}}</span>
         <span v-else>暂未登录</span>
@@ -40,14 +40,19 @@
 
       </div>
     </div>
+
+    <!-- 用户中心 -->
+    <user-drawer :visible='showUserMenu' @close='()=>{showUserMenu=false}'></user-drawer>
   </div>
 </template>
 
 <script>
 import CountDown from '@/components/CountDown.vue';
+import UserDrawer from '@/components/UserDrawer.vue';
 export default {
   data() {
     return {
+      showUserMenu: false,
       showPopup: false,
       activeTab: parseInt(this.$route.query.number) || 'all',
       id: this.$route.query.id,
@@ -59,7 +64,7 @@ export default {
   created() {
     this.getGuessDetail();
   },
-  components: { CountDown },
+  components: { CountDown, UserDrawer },
   methods: {
     // 获取竞猜详情
     getGuessDetail() {

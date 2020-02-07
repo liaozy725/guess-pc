@@ -34,7 +34,7 @@
             </div>
           </div>
           <div class="guess-r">
-            <div>+20盘口</div>
+            <div>+{{item.countNum}}盘口</div>
           </div>
         </li>
       </ul>

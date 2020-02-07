@@ -165,6 +165,7 @@
   border-radius: 4px;
   color: $darkfff;
   cursor: pointer;
+  user-select:none;
   &.disabled {
     cursor: not-allowed;
   }
