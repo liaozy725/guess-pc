@@ -6,10 +6,10 @@
           <img src="../assets/games-a.png" alt="">
           <span>游戏大厅</span>
         </router-link>
-        <div class="header-box">
+        <router-link to="/layout/GuessRes" class="header-box">
           <img src="../assets/icon-res.png" alt="">
           <span>赛果</span>
-        </div>
+        </router-link>
       </div>
       <div class="layout-header-r">
         <div class="header-box" @click="showRule=true">

@@ -4,7 +4,7 @@
       <li class="game-item" :class="activeGame=='all'&&'active'" @click="changeActiveGame('all')">
         <img src="../../assets/all.png" alt="">
         <span>所有比赛</span>
-        <i>000</i>
+        <!-- <i>000</i> -->
       </li>
       <li class="game-item" :class="activeGame==item.id&&'active'" v-for="(item,index) in gameList" :key='item.id' @click="changeActiveGame(item.id)">
         <img :src="item.gamePic" alt="">
@@ -22,20 +22,23 @@
           </div>
           <div class="guess-center">
             <div class="team-box">
-              <span class="team-name">{{item.homeListReps[0].gameTeamName}}</span>
-              <img v-lazy='item.homeListReps[0].teamPic' alt="">
-              <span class="price">{{item.homeListReps[0].oddsAmount}}</span>
+              <span class="team-name">{{item.userBettingListInfoReps[0].gameTeamName}}</span>
+              <img v-lazy='item.userBettingListInfoReps[0].teamPic' alt="">
+              <span class="win-box"><img src="../../assets/win.png" class="win" v-if="item.userBettingListInfoReps[0].isWin=='win'" alt=""></span>
+              <span class="price">{{item.userBettingListInfoReps[0].oddsAmount}}</span>
             </div>
-            <count-down class="daojishi" :endTime='item.matchTime+""' endText='比赛进行中'></count-down>
+            <!-- <count-down class="daojishi" :endTime='item.matchTime+""' endText='比赛已结束'></count-down> -->
+            <img src="../../assets/vs.png" alt="">
             <div class="team-box">
-              <span class="price">{{item.homeListReps[1].oddsAmount}}</span>
-              <img v-lazy='item.homeListReps[1].teamPic' alt="">
-              <span class="team-name">{{item.homeListReps[1].gameTeamName}}</span>
+              <span class="price">{{item.userBettingListInfoReps[1].oddsAmount}}</span>
+              <img v-lazy='item.userBettingListInfoReps[1].teamPic' alt="">
+              <span class="win-box"><img src="../../assets/win.png" class="win" v-if="item.userBettingListInfoReps[1].isWin=='win'" alt=""></span>
+              <span class="team-name">{{item.userBettingListInfoReps[1].gameTeamName}}</span>
             </div>
           </div>
-          <div class="guess-r">
+          <!-- <div class="guess-r">
             <div>+{{item.countNum}}盘口</div>
-          </div>
+          </div> -->
         </li>
       </ul>
       <p class="load-more" :class='finished&&"disabled"' @click="loadMore">{{finished?'暂无更多数据':'点我加载更多'}}</p>
@@ -96,12 +99,12 @@ export default {
     // 获取竞猜列表
     getGuessList() {
       let params = {
+        token: this.$store.state.token,
         gameId: this.activeGame == "all" ? "" : this.activeGame,
-        playType: this.playType,
         pageSize: this.pageSize,
         pageNum: this.pageNum
       };
-      this.$http.post("home/homeList", params).then(res => {
+      this.$http.post("home/guessContentInfoList", params).then(res => {
         if (res.retCode == 0) {
           if (res.retCode == 0) {
             this.guessList = this.guessList.concat(res.data);
@@ -231,6 +234,15 @@ export default {
             height: 46px;
             margin: 0 25px;
             border-radius: 4px;
+          }
+          .win-box{
+            display: inline-block;
+            width: 46px;
+            .win{
+              height: auto;
+            border-radius: 0;
+            margin: 0;
+            }
           }
           &:last-child {
             justify-content: flex-end;

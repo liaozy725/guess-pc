@@ -31,6 +31,12 @@ const routes = [
         name: '竞猜详情',
         component: () => import('../views/Home/GuessDetail.vue'),
       },
+      // 赛果
+      {
+        path: '/layout/GuessRes',
+        name: '赛果',
+        component: () => import('../views/Home/GuessRes.vue'),
+      },
       //用户中心-提现
       {
         path: '/layout/withdraw',
