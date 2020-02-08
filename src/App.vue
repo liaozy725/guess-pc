@@ -102,7 +102,6 @@
 }
 //iview弹框样式更改
 .ivu-modal {
-  top: 20% !important;
   .ivu-modal-content {
     background-color: $dark;
     color: $gray;

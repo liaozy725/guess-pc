@@ -94,21 +94,18 @@
         <div class="code-box">
           <img v-if="codeUrl" :src="codeUrl" alt />
         </div>
+        <p class="count-down">{{countDown>0?'请在 '+countDown+ 's 内完成支付': '支付超时'}}</p>
         <div class="top-text-box">
           <span>重复支付和修改金额无法到账，概不负责</span>
         </div>
         <div class="term-box">
           <div class="list-box">
             <p>1</p>
-            <span>长按/截图，保存到相册</span>
-          </div>
-          <div class="list-box">
-            <p>2</p>
             <span v-if="activeTab=='wechant'">打开微信扫一扫，相册识别</span>
             <span v-else>打开支付宝扫一扫，相册识别</span>
           </div>
           <div class="list-box">
-            <p>3</p>
+            <p>2</p>
             <span>进行支付确认</span>
           </div>
         </div>
@@ -123,6 +120,7 @@
 // import QRCode from 'qrcodejs2';//二维码生成插件
 import { uploadUserInfo } from '@/utils/utils.js';
 let btnCanClick = true;
+var timer;
 export default {
   name: "pay",
   data() {
@@ -143,6 +141,7 @@ export default {
       showCode: false,//控制二维码弹框
       codeUrl: '',//二维码地址
       orderNo: null,//订单号
+      countDown: 180
     };
   },
   created() {
@@ -150,6 +149,9 @@ export default {
   },
   mounted() {
     this.uploadUserInfo();
+  },
+  destroyed(){
+    clearInterval(timer)
   },
   methods: {
     uploadUserInfo: uploadUserInfo,//获取用户详情
@@ -220,6 +222,13 @@ export default {
           this.showShopCar = false;
           this.isFinish = false;
           this.showCode = true;
+          this.countDown = 180
+          timer = setInterval(()=>{
+            this.countDown --;
+            if(this.countDown<=0){
+              clearInterval(timer)
+            }
+          },1000)
         }
       });
     },
@@ -450,6 +459,12 @@ export default {
           width: 220px;
           height: 220px;
         }
+      }
+      .count-down{
+        text-align: center;
+        margin-bottom: 10px;
+        font-size: 16px;
+        color: $yellow;
       }
       .top-text-box {
         span {

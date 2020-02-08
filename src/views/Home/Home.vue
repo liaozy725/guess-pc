@@ -9,7 +9,7 @@
       <li class="game-item" :class="activeGame==item.id&&'active'" v-for="(item,index) in gameList" :key='item.id' @click="changeActiveGame(item.id)">
         <img :src="item.gamePic" alt="">
         <span>{{item.gameName}}</span>
-        <i>000</i>
+        <i>{{item.countNum}}</i>
       </li>
     </ul>
     <div class="guess-list">
