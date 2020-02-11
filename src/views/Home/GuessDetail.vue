@@ -25,19 +25,58 @@
     </header>
     <div class="guess-main">
       <div class="guess-l">
-        <ul>
-          <li class="box-1" v-for="(item,index) in guessData.guessInfoListReps" :key="index">
-            <div class="box-title">
-              <span>{{item.number>0?'第'+ item.number + '局' : '系列赛'}}</span>
-              <span>
-                <Icon type="md-arrow-dropdown" />
-              </span>
-            </div>
-          </li>
-        </ul>
+        <Collapse v-model="activeTab" accordion>
+          <Panel v-for="(row,idx) in guessList" :key="idx" :name="idx+''" class="guess-panel">
+            <span class="box-title">
+              {{idx>0?'第'+idx+'局':'系列赛'}}
+            </span>
+            <span class="box-title-r">{{row.length}}</span>
+            <ul slot="content">
+              <li class="guess-row2" v-for="(row2,idx2) in row">
+                <div class="guess-row2-flex">
+                  <div class="guess-row3 guess-row3-l" @click="showSubmitBoxFn(row2,row2.listReps[0],1)">
+                    <span class="team-odds">{{row2.listReps[0].oddsAmount}}</span>
+                    <span class="team-name">{{row2.listReps[0].gameTeamName}}</span>
+                    <img class="team-pic" v-lazy="row2.listReps[0].teamPic" alt="">
+                    <img src="../../assets/jt-blue.png" alt="" class="jt">
+                  </div>
+                  <span class="guess-row3-center">{{row2.title}}</span>
+                  <div class="guess-row3 guess-row3-r" @click="showSubmitBoxFn(row2,row2.listReps[1],2)">
+                    <img src="../../assets/jt-red.png" alt="" class="jt">
+                    <img class="team-pic" v-lazy="row2.listReps[1].teamPic" alt="">
+                    <span class="team-name">{{row2.listReps[1].gameTeamName}}</span>
+                    <span class="team-odds">{{row2.listReps[1].oddsAmount}}</span>
+                  </div>
+                </div>
+                <div class="guess-row2-submit" v-if="row2.showSubmitBox">
+                  <div class="submit-box-title">
+                    <label>赔率</label>
+                    <span>{{row2.selectTeam.oddsAmount}}</span>
+                  </div>
+                  <div class="submit-box-center">
+                    <label>下注金额(RMB)</label>
+                    <Input v-model="row2.selectTeam.num" type="number"/>
+                  </div>
+                  <div class="submit-box-bottom">
+                    <label>预计返还(RMB)</label>
+                    <span class="fanhuan">{{(row2.selectTeam.num*row2.selectTeam.oddsAmount).toFixed(2)}}</span>
+                    <Button class="submit-btn" @click="confirmBets(row2)">确认下注</Button>
+                  </div>
+                  <div class="border-top" :class="'border-top-'+row2.selectType"></div>
+                </div>
+              </li>
+            </ul>
+          </Panel>
+        </Collapse>
       </div>
       <div class="guess-r">
-
+        <div class="guess-infos">
+          <div class="guess-infos-center">
+            <div class="guess-info-l">
+              <!-- <img :src="teamList[0].teamPic" alt=""> -->
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -49,16 +88,19 @@
 <script>
 import CountDown from '@/components/CountDown.vue';
 import UserDrawer from '@/components/UserDrawer.vue';
+import { log } from 'util';
 export default {
   data() {
     return {
       showUserMenu: false,
       showPopup: false,
-      activeTab: parseInt(this.$route.query.number) || 'all',
+      activeTab: this.$route.query.number ? [this.$route.query.number] : [0],
       id: this.$route.query.id,
       guessId: this.$route.query.id,
       guessData: {},
-      carData: []
+      guessList:[],
+      carData: [],
+      teamList:[]
     };
   },
   created() {
@@ -70,7 +112,7 @@ export default {
     getGuessDetail() {
       let params = {
         guessId: this.guessId,
-        // number: this.activeTab == 'all' ? '' : this.activeTab
+        number: this.activeTab[0] == 0 ? '' : this.activeTab[0]
       }
       this.$http.post('home/guessInfoList', params).then(res => {
         if (res.retCode == 0) {
@@ -79,10 +121,30 @@ export default {
           } catch (error) {
 
           }
+          res.data.guessInfoListReps.forEach(ele => {
+            if(!this.guessList[ele.number]){
+              this.guessList[ele.number] = [];
+            }
+            this.guessList[ele.number].push(ele);
+          });
           this.guessData = res.data;
+          this.teamList = res.data.team;
         }
       })
     },
+    // 点击展开下注
+    showSubmitBoxFn(row2,team,type){
+      if(!(row2.showSubmitBox && row2.selectTeam.gameTeamId != team.gameTeamId)){
+        this.$set(row2,'showSubmitBox',!row2.showSubmitBox);
+      }
+      this.$set(team,'num',0);
+      this.$set(row2,'selectTeam',team);
+      this.$set(row2,'selectType',type);
+    },
+    // 确认下注
+    confirmBets(row2){
+
+    }
   }
 }
 </script>
@@ -148,7 +210,7 @@ export default {
         height: 22px;
       }
     }
-    .header-r {
+    .headder-r {
       text-align: right;
       font-size: 16px;
       cursor: pointer;
@@ -172,6 +234,130 @@ export default {
       overflow: auto;
     }
     .guess-l {
+      /deep/.ivu-collapse{
+        border: 0;
+      }
+      /deep/.guess-panel{
+        background-image: linear-gradient(90deg,$deepBlue,$deepRed);
+        .ivu-collapse-header{
+          color: #fff;
+          .box-title-r{
+            float: right;
+            padding-right: 20px;
+          }
+        }
+        .ivu-collapse-content{
+          background: transparent;
+          border-bottom: 10px solid $dark000;
+          padding: 0;
+        }
+        .ivu-collapse-content-box{
+          padding: 0;
+        }
+        .guess-row2{
+          border-top: 2px solid;
+          border-image: linear-gradient(90deg,$blue,$red) 100 0;
+          color: #fff;
+          &:first-child{
+          border: 0;
+          }
+          .guess-row2-flex{
+            display: flex;
+            align-items: center;
+          }
+          .guess-row3{
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            user-select: none;
+            .team-pic{
+              width: 40px;
+              height: 40px;
+              border-radius: 50%;
+              margin:0 10px;
+            }
+            .team-odds{
+              background: $blue;
+              height: 60px;
+              line-height: 60px;
+              width: 80px;
+              text-align: center;
+            }
+            .team-name{
+              flex: 1;
+              font-size: 16px;
+              text-align: center;
+            }
+          }
+          .guess-row3-r{
+            text-align: right;
+            .team-odds{
+              background: $red;
+            }
+          }
+          .guess-row3-center{
+            width: 160px;
+            text-align: center;
+            font-weight: bold;
+          }
+        }
+        .guess-row2-submit{
+          position: relative;
+          padding: 0 15px;
+          >div{
+            display: flex;
+            align-items: center;
+            justify-content: right;
+            padding: 4px 0;
+            label{
+              width: 140px;
+              line-height: 40px;
+            }
+            span{
+              flex: 1;
+              text-align: right;
+            }
+            .fanhuan{
+              text-align: left;
+            }
+            .ivu-input-wrapper{
+              flex: 1;
+            }
+            .submit-btn{
+              height: 36px !important;
+              line-height: 36px !important;
+              background: rgba($color: #fff, $alpha: 0.2) !important;
+              color: #fff !important;
+              font-size: 16px !important;
+              border: 1px solid #fff !important;
+            }
+            &.submit-box-bottom{
+              border-top: 1px solid rgba($color: #fff, $alpha: 0.2);
+              margin-top: 10px;
+              padding-top: 10px;
+              padding-bottom: 10px;
+            }
+          }
+          .border-top{
+            position: absolute;
+            top: 0;
+            height: 2px;
+            padding: 0;
+            width: 50%;
+            transition:all ease-in-out 0.15s;
+            &.border-top-1{
+              background: $red;
+              left: 50%;
+            }
+            &.border-top-2{
+              background: $blue;
+              left: 0;
+            }
+          }
+        }
+      }
     }
   }
 }

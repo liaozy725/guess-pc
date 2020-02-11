@@ -4,7 +4,7 @@
       <li class="game-item" :class="activeGame=='all'&&'active'" @click="changeActiveGame('all')">
         <img src="../../assets/all.png" alt="">
         <span>所有比赛</span>
-        <i>000</i>
+        <i>{{total}}</i>
       </li>
       <li class="game-item" :class="activeGame==item.id&&'active'" v-for="(item,index) in gameList" :key='item.id' @click="changeActiveGame(item.id)">
         <img :src="item.gamePic" alt="">
@@ -62,7 +62,8 @@ export default {
       carDataIds: [], // 购物车id集合
       pageNum: 0,
       pageSize: 10,
-      finished: false //没有更多数据
+      finished: false, //没有更多数据
+      total:0
     }
   },
   created() {
@@ -89,6 +90,9 @@ export default {
       this.$http.post("home/gameList", {}).then(res => {
         if (res.retCode == 0) {
           this.gameList = res.data;
+          this.gameList.forEach((ele)=>{
+            this.total+=ele.countNum
+          })
           this.getGuessList();
         }
       });
