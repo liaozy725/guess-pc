@@ -90,6 +90,7 @@
           </div>
           <iframe :src="guessData.url" frameborder="0" style="width:100%;height:100%;"></iframe>
         </div>
+        <div class="right-bottom"></div>
       </div>
     </div>
 
@@ -220,13 +221,6 @@ export default {
     .header-l,
     .header-r {
       width: 25%;
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-      cursor: pointer;
-      img{
-        margin: 0 10px;
-      }
     }
     .header-l {
       font-size: 16px;
@@ -271,7 +265,7 @@ export default {
         height: 22px;
       }
     }
-    .headder-r {
+    .header-r {
       text-align: right;
       font-size: 16px;
       cursor: pointer;
@@ -422,11 +416,11 @@ export default {
       }
     }
     .guess-r{
-      display: flex;
-      flex-direction: column;
+      // display: flex;
+      // flex-direction: column;
+      overflow: hidden;
       .right-top{
         height: 50%;
-        margin-bottom: 10px;
         background: url(../../assets/login-bg.jpg) no-repeat;
         background-size: 100% 100%;
         .guess-infos{
@@ -459,6 +453,9 @@ export default {
           }
         }
         
+      }
+      .right-bottom{
+        flex: 1;
       }
     }
   }

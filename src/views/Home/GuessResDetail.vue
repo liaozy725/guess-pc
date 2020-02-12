@@ -4,7 +4,7 @@
       <div class="header-l">
         <img v-lazy='guessData.gamePic' alt="">
         <span class="time">{{guessData.matchTime | parseTime('{y}/{m}/{d} {h}:{i}')}}</span>
-        <count-down v-if="guessData.matchTime" :endTime='guessData.matchTime+""' endText='比赛进行中'></count-down>
+        <!-- <count-down v-if="guessData.matchTime" :endTime='guessData.matchTime+""' endText='比赛进行中'></count-down> -->
       </div>
       <div class="header-center" v-if="guessData.team && guessData.team.length >=2">
         <div class="team">

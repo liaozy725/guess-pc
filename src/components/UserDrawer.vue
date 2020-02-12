@@ -24,7 +24,7 @@
       <div @click='goToRouterLink("/layout/stream")' class="link">财务流水</div>
       <div @click='goToRouterLink("/layout/AccountSafe")' class="link">账号安全</div>
       <div @click='goToRouterLink("/layout/SystemMsg")' class="link">系统消息</div>
-      <div @click='goToRouterLink("/layout/home")' class="link">联系客服</div>
+      <a href="https://chat.sobot.com/chat/h5/v2/index.html?sysnum=c3ab0131a4554212bfc748b4e247aaba" target="_blank" class="link">联系客服</a>
       <div class="logout link" @click="logout">{{$store.state.userInfo?'退出登录':'立即登录'}}</div>
     </div>
   </Drawer>
