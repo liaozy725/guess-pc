@@ -34,35 +34,21 @@
             <ul slot="content">
               <li class="guess-row2" v-for="(row2,idx2) in row">
                 <div class="guess-row2-flex">
-                  <div class="guess-row3 guess-row3-l" @click="showSubmitBoxFn(row2,row2.listReps[0],1)">
+                  <div class="guess-row3 guess-row3-l">
                     <span class="team-odds">{{row2.listReps[0].oddsAmount}}</span>
                     <span class="team-name">{{row2.listReps[0].gameTeamName}}</span>
                     <img class="team-pic" v-lazy="row2.listReps[0].teamPic" alt="">
                     <img src="../../assets/jt-blue.png" alt="" class="jt">
+                    <img src="../../assets/win.png" class="win" v-if="row2.listReps[0].isWin == 'win'" alt="">
                   </div>
                   <span class="guess-row3-center">{{row2.title}}</span>
-                  <div class="guess-row3 guess-row3-r" @click="showSubmitBoxFn(row2,row2.listReps[1],2)">
+                  <div class="guess-row3 guess-row3-r">
                     <img src="../../assets/jt-red.png" alt="" class="jt">
                     <img class="team-pic" v-lazy="row2.listReps[1].teamPic" alt="">
                     <span class="team-name">{{row2.listReps[1].gameTeamName}}</span>
                     <span class="team-odds">{{row2.listReps[1].oddsAmount}}</span>
+                    <img src="../../assets/win.png" class="win" v-if="row2.listReps[1].isWin == 'win'" alt="">
                   </div>
-                </div>
-                <div class="guess-row2-submit" v-if="row2.showSubmitBox">
-                  <div class="submit-box-title">
-                    <label>赔率</label>
-                    <span>{{row2.selectTeam.oddsAmount}}</span>
-                  </div>
-                  <div class="submit-box-center">
-                    <label>下注金额(RMB)</label>
-                    <Input v-model="row2.selectTeam.num" type="number"/>
-                  </div>
-                  <div class="submit-box-bottom">
-                    <label>预计返还(RMB)</label>
-                    <span class="fanhuan">{{(row2.selectTeam.num*row2.selectTeam.oddsAmount).toFixed(2)}}</span>
-                    <Button class="submit-btn" @click="confirmBets(row2)">确认下注</Button>
-                  </div>
-                  <div class="border-top" :class="'border-top-'+row2.selectType"></div>
                 </div>
               </li>
             </ul>
@@ -128,7 +114,7 @@ export default {
         guessId: this.guessId,
         number: this.activeTab[0] == 0 ? '' : this.activeTab[0]
       }
-      this.$http.post('home/guessInfoList', params).then(res => {
+      this.$http.post('home/guessContentInfo', params).then(res => {
         if (res.retCode == 0) {
           try {
             res.data.team = JSON.parse(res.data.team)
@@ -220,10 +206,6 @@ export default {
     .header-l,
     .header-r {
       width: 25%;
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-      cursor: pointer;
       img{
         margin: 0 10px;
       }
@@ -271,7 +253,7 @@ export default {
         height: 22px;
       }
     }
-    .headder-r {
+    .header-r {
       text-align: right;
       font-size: 16px;
       cursor: pointer;
@@ -332,7 +314,7 @@ export default {
             display: flex;
             align-items: center;
             justify-content: center;
-            cursor: pointer;
+            position: relative;
             user-select: none;
             .team-pic{
               width: 40px;
@@ -352,11 +334,24 @@ export default {
               font-size: 16px;
               text-align: center;
             }
+            .win{
+              position: absolute;
+              width: 40px;
+              left: 20px;
+              bottom: 4px;
+            }
           }
           .guess-row3-r{
             text-align: right;
             .team-odds{
               background: $red;
+            }
+            .win{
+              position: absolute;
+              width: 40px;
+              left: auto;
+              right: 20px;
+              bottom: 4px;
             }
           }
           .guess-row3-center{

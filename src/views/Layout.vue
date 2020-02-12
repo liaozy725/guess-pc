@@ -6,7 +6,7 @@
           <img src="../assets/games-a.png" alt="">
           <span>游戏大厅</span>
         </router-link>
-        <router-link to="/layout/GuessRes" class="header-box">
+        <router-link to="/layout/GuessRes" class="header-box" :class="$router.path=='/layout/GuessRes' && 'active'">
           <img src="../assets/icon-res.png" alt="">
           <span>赛果</span>
         </router-link>

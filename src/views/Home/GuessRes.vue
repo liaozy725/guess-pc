@@ -31,8 +31,8 @@
             <img src="../../assets/vs.png" alt="">
             <div class="team-box">
               <span class="price">{{item.userBettingListInfoReps[1].oddsAmount}}</span>
-              <img v-lazy='item.userBettingListInfoReps[1].teamPic' alt="">
               <span class="win-box"><img src="../../assets/win.png" class="win" v-if="item.userBettingListInfoReps[1].isWin=='win'" alt=""></span>
+              <img v-lazy='item.userBettingListInfoReps[1].teamPic' alt="">
               <span class="team-name">{{item.userBettingListInfoReps[1].gameTeamName}}</span>
             </div>
           </div>
@@ -126,9 +126,9 @@ export default {
     // 跳转到竞猜详情
     guessInfo(item) {
       this.$router.push({
-        path: "/layout/GuessDetail",
+        path: "/layout/GuessResDetail",
         query: {
-          id: item.id
+          id: item.guessId
         }
       });
     },
