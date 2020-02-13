@@ -153,6 +153,10 @@ const routes = [
         }
       },
     ]
+  },
+  {
+    path: '*',
+    redirect: '/layout/home'
   }
 ]
 

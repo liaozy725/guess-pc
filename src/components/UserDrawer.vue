@@ -24,13 +24,15 @@
       <div @click='goToRouterLink("/layout/stream")' class="link">财务流水</div>
       <div @click='goToRouterLink("/layout/AccountSafe")' class="link">账号安全</div>
       <div @click='goToRouterLink("/layout/SystemMsg")' class="link">系统消息</div>
-      <a href="https://chat.sobot.com/chat/h5/v2/index.html?sysnum=c3ab0131a4554212bfc748b4e247aaba" target="_blank" class="link">联系客服</a>
+      <div class="link" @click="contactService">联系客服</div>
+      <!-- <a href="javascript:void(zE('webWidget', 'popout'))" class="link">联系客服</a> -->
       <div class="logout link" @click="logout">{{$store.state.userInfo?'退出登录':'立即登录'}}</div>
     </div>
   </Drawer>
 </template>
 
 <script>
+import { log } from 'util';
 export default {
   props:{
     visible:{
@@ -42,6 +44,21 @@ export default {
     return {
       showUserMenu: true
     }
+  },
+  mounted(){
+    this.$nextTick(()=>{
+      window.zESettings = {
+        webWidget: {
+          color: { 
+            theme: '#ffc444'
+          },
+          launcher:{
+            chatLabel: { '*': '联系客服' }
+          },
+          zIndex: -1
+        }
+      }
+    })
   },
   methods:{
     // 跳转
@@ -61,7 +78,13 @@ export default {
     },
     // 关闭钱
     beforeClose(){
+      // zE('webWidget', 'updateSettings', {webWidget: {zIndex: -1}});
       this.$emit('close',false)
+    },
+    // 联系客服
+    contactService(){
+      zE('webWidget', 'updateSettings', {webWidget: {zIndex: 9999}});
+      // zE('webWidget', 'popout')
     }
   }
   
@@ -115,6 +138,7 @@ export default {
         font-size: 16px;
         cursor: pointer;
         color: $gray;
+        display: block;
         &:hover {
           background: $dark111;
         }
