@@ -101,7 +101,7 @@ export default {
     // 更多赛果
     moreRes(item) {
       this.$router.push({
-        path: "/layout/GuessResDetail",
+        path: "/jc/layout/GuessResDetail",
         query: {
           type: "guessRes",
           id: item.guessId

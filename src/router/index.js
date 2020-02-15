@@ -7,27 +7,27 @@ const routes = [
   {
     path:'/',
     name:'首页',
-    redirect:'/layout/home'
+    redirect:'/jc/layout/home'
   },
   {
-    path: '/login',
+    path: '/jc/login',
     name: '登录',
-    component: () => import( /* webpackChunkName: "about" */ '../views/Login.vue')
+    component: () => import('../views/Login.vue')
   },
   {
     path: '/layout',
     name: '',
     component: () => import('../views/Layout.vue'),
-    redirect: '/layout/home',
+    redirect: '/jc/layout/home',
     children: [
       {
-        path: '/layout/home',
+        path: '/jc/layout/home',
         name: '首页',
         component: () => import('../views/Home/Home.vue'),
       },
       // 竞猜详情
       {
-        path: '/layout/GuessDetail',
+        path: '/jc/layout/GuessDetail',
         name: '竞猜详情',
         component: () => import('../views/Home/GuessDetail.vue'),
       },
@@ -39,13 +39,13 @@ const routes = [
       },
       // 赛果详情
       {
-        path: '/layout/GuessResDetail',
+        path: '/jc/layout/GuessResDetail',
         name: '赛果详情',
         component: () => import('../views/Home/GuessResDetail.vue'),
       },
       //用户中心-提现
       {
-        path: '/layout/withdraw',
+        path: '/jc/layout/withdraw',
         name: 'withdraw',
         component: () => import('../views/User/withdraw.vue'),
         meta: {
@@ -54,7 +54,7 @@ const routes = [
         }
       }, //用户中心-充值
       {
-        path: '/layout/pay',
+        path: '/jc/layout/pay',
         name: 'pay',
         component: () => import('../views/User/pay.vue'),
         meta: {
@@ -64,7 +64,7 @@ const routes = [
       },
       //用户中心-银行卡详情表
       {
-        path: '/layout/BankcardInfo',
+        path: '/jc/layout/BankcardInfo',
         name: 'BankcardInfo',
         component: () => import('@/views/User/BankcardInfo.vue'),
         meta: {
@@ -74,7 +74,7 @@ const routes = [
       },
       //用户中心-银行卡编辑
       {
-        path: '/layout/BankcardEdit',
+        path: '/jc/layout/BankcardEdit',
         name: 'BankcardEdit',
         component: () => import('@/views/User/BankcardEdit.vue'),
         meta: {
@@ -84,7 +84,7 @@ const routes = [
       },
       //用户中心-支付密码设置
       {
-        path: '/layout/ChangePayPwd',
+        path: '/jc/layout/ChangePayPwd',
         name: 'ChangePayPwd',
         component: () => import('@/views/User/ChangePayPwd.vue'),
         meta: {
@@ -94,7 +94,7 @@ const routes = [
       },
       //用户中心-财务流水
       {
-        path: '/layout/stream',
+        path: '/jc/layout/stream',
         name: 'stream',
         component: () => import('@/views/User/stream.vue'),
         meta: {
@@ -104,7 +104,7 @@ const routes = [
       },
       //用户中心-投注历史
       {
-        path: '/layout/GuessHistory',
+        path: '/jc/layout/GuessHistory',
         name: 'GuessHistory',
         component: () => import('@/views/Home/GuessHistory.vue'),
         meta: {
@@ -114,7 +114,7 @@ const routes = [
       },
       //用户中心-账号安全
       {
-        path: '/layout/AccountSafe',
+        path: '/jc/layout/AccountSafe',
         name: 'AccountSafe',
         component: () => import('@/views/User/AccountSafe.vue'),
         meta: {
@@ -124,7 +124,7 @@ const routes = [
       },
       //用户中心-绑定手机
       {
-        path: '/layout/ChangeMobile',
+        path: '/jc/layout/ChangeMobile',
         name: 'ChangeMobile',
         component: () => import('@/views/User/ChangeMobile.vue'),
         meta: {
@@ -134,7 +134,7 @@ const routes = [
       },
       //用户中心-修改密码
       {
-        path: '/layout/ChangePwd',
+        path: '/jc/layout/ChangePwd',
         name: 'ChangePwd',
         component: () => import('@/views/User/ChangePwd.vue'),
         meta: {
@@ -144,7 +144,7 @@ const routes = [
       },
       //用户中心-系统消息
       {
-        path: '/layout/SystemMsg',
+        path: '/jc/layout/SystemMsg',
         name: 'SystemMsg',
         component: () => import('@/views/User/SystemMsg.vue'),
         meta: {
@@ -156,7 +156,7 @@ const routes = [
   },
   {
     path: '*',
-    redirect: '/layout/home'
+    redirect: '/jc/layout/home'
   }
 ]
 

@@ -1,12 +1,12 @@
 <template>
   <Drawer :value="visible" class="user-menu" width="320" :before-close='beforeClose'>
     <div class="header">
-      <div @click="goToRouterLink('/layout/pay')" class="item">
+      <div @click="goToRouterLink('/jc/layout/pay')" class="item">
         <label>余额</label>
         <p v-if="$store.state.userInfo">{{$store.state.userInfo.userBalance||0}}</p>
         <p v-else>0</p>
       </div>
-      <div @click="goToRouterLink('/layout/withdraw')" class="item">
+      <div @click="goToRouterLink('/jc/layout/withdraw')" class="item">
         <label>可提</label>
         <p v-if="$store.state.userInfo">{{$store.state.userInfo.userBalance}}</p>
         <p v-else>0</p>
@@ -18,12 +18,12 @@
       </div>
     </div>
     <div class="menu-list">
-      <div @click='goToRouterLink("/layout/pay")' class="link">充值</div>
-      <div @click='goToRouterLink("/layout/withdraw")' class="link">提现</div>
-      <div @click='goToRouterLink("/layout/GuessHistory")' class="link">投注历史</div>
-      <div @click='goToRouterLink("/layout/stream")' class="link">财务流水</div>
-      <div @click='goToRouterLink("/layout/AccountSafe")' class="link">账号安全</div>
-      <div @click='goToRouterLink("/layout/SystemMsg")' class="link">系统消息</div>
+      <div @click='goToRouterLink("/jc/layout/pay")' class="link">充值</div>
+      <div @click='goToRouterLink("/jc/layout/withdraw")' class="link">提现</div>
+      <div @click='goToRouterLink("/jc/layout/GuessHistory")' class="link">投注历史</div>
+      <div @click='goToRouterLink("/jc/layout/stream")' class="link">财务流水</div>
+      <div @click='goToRouterLink("/jc/layout/AccountSafe")' class="link">账号安全</div>
+      <div @click='goToRouterLink("/jc/layout/SystemMsg")' class="link">系统消息</div>
       <div class="link" @click="contactService">联系客服</div>
       <!-- <a href="javascript:void(zE('webWidget', 'popout'))" class="link">联系客服</a> -->
       <div class="logout link" @click="logout">{{$store.state.userInfo?'退出登录':'立即登录'}}</div>
@@ -74,7 +74,7 @@ export default {
       localStorage.clear();
       this.$store.commit("setToken", "");
       this.$store.commit("setUserInfo", null);
-      this.$router.replace("/login");
+      this.$router.replace("/jc/login");
     },
     // 关闭钱
     beforeClose(){

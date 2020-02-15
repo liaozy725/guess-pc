@@ -7,20 +7,20 @@
     <div class="box-pack">
     <div class="list-box">
       <div class="label-text">绑定手机</div>
-      <router-link to="/layout/ChangeMobile" class="label-content">
+      <router-link to="/jc/layout/ChangeMobile" class="label-content">
         <span v-if="$store.state.userInfo&&$store.state.userInfo.mobileNo">{{$store.state.userInfo.mobileNo}}</span>
         <img src="../../assets/icon-l.png" class="icon-r" alt />
       </router-link>
     </div>
     <div class="list-box">
       <div class="label-text">修改密码</div>
-      <router-link to="/layout/ChangePwd" class="label-content">
+      <router-link to="/jc/layout/ChangePwd" class="label-content">
         <img src="../../assets/icon-l.png" class="icon-r" alt />
       </router-link>
     </div>
     <!-- <div class="list-box">
       <div class="label-text">支付密码</div>
-      <router-link to="/layout/ChangePayPwd" class="label-content">
+      <router-link to="/jc/layout/ChangePayPwd" class="label-content">
         <img src="../../assets/icon-l.png" class="icon-r" alt />
       </router-link>
     </div> -->

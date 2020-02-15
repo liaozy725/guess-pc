@@ -56,7 +56,7 @@ export default {
     },
     //跳转编辑页面
     edit(){
-      this.$router.push({path:'/layout/BankcardEdit',query:{id:this.bankInfo.id||null}})
+      this.$router.push({path:'/jc/layout/BankcardEdit',query:{id:this.bankInfo.id||null}})
     },
     //获取银行卡信息
     getBankInfo() {

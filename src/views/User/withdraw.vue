@@ -4,7 +4,7 @@
       <Icon type="md-arrow-back" /><span>返回</span>
     </div>
     <div class="box-pack">
-      <router-link to="/layout/BankcardInfo">
+      <router-link to="/jc/layout/BankcardInfo">
         <div class="card-box between">
           <div class="card-box-l">
             <img src="../../assets/icon-card.png" alt />
@@ -163,7 +163,7 @@ export default {
               showConfirmButton: true,
               showCancelButton: true,
               onOk: () => {
-                this.$router.push({ path: "/layout/BankcardEdit" });
+                this.$router.push({ path: "/jc/layout/BankcardEdit" });
               },
               onCancel: () => {
                 this.$router.go(-1); //返回上一层
@@ -188,7 +188,7 @@ export default {
           showCancelButton: true,
           confirmButtonColor: "#35333b",
           onOk: () => {
-            this.$router.push({ path: "/layout/ChangePayPwd" });
+            this.$router.push({ path: "/jc/layout/ChangePayPwd" });
           },
           onCancel: () => {
             this.$router.go(-1); //返回上一层
@@ -310,7 +310,7 @@ export default {
     },
     //点击支付完成按钮
     successBtn() {
-      this.$router.replace({ path: "/layout/home" });
+      this.$router.replace({ path: "/jc/layout/home" });
     }
   }
 };

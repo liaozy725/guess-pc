@@ -18,7 +18,7 @@
             <span>忘记密码</span>
           </div>
           <Button long @click="login" @keyup.enter='login'>登录</Button>
-          <router-link to="/layout/home" class="back">我先逛逛</router-link>
+          <router-link to="/jc/layout/home" class="back">我先逛逛</router-link>
         </Form>
       </div>
       <div class="sign-box form-box" v-else>
@@ -89,11 +89,11 @@ export default {
         if (valid) {
           let ip = returnCitySN["cip"];
           this.loginForm.ip = ip;
-          this.$http.post("account/login", this.loginForm).then(res => {
+          this.$http.post("account/jc/login", this.loginForm).then(res => {
             if (res.retCode == 0) {
               this.$store.commit("setToken", res.data.token);
               this.uploadUserInfo();
-              this.$router.replace("/layout/home");
+              this.$router.replace("/jc/layout/home");
             }
           });
         }
@@ -123,7 +123,7 @@ export default {
 <style lang="scss" scoped>
 .login {
   height: 100vh;
-  background: url(../assets/login-bg.jpg) no-repeat;
+  background: #000 url(../assets/login-bg.jpg) no-repeat;
   background-size: cover;
   display: flex;
   align-items: center;

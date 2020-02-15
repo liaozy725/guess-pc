@@ -152,7 +152,7 @@ export default {
           okText:'立即登录',
           cancelText:'取消',
           onOk(){
-            _this.$router.replace('/login')
+            _this.$router.replace('/jc/login')
           }
         })
       }else if(row2.selectTeam.num<=0){
@@ -179,7 +179,7 @@ export default {
             content:res.errorMsg,
             okText: '前往充值',
             onOk(){
-              _this.$router.push('/layout/pay')
+              _this.$router.push('/jc/layout/pay')
             }
           })
         }

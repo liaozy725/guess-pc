@@ -127,7 +127,7 @@ export default {
     // 跳转到竞猜详情
     guessInfo(item) {
       this.$router.push({
-        path: "/layout/GuessDetail",
+        path: "/jc/layout/GuessDetail",
         query: {
           id: item.id
         }

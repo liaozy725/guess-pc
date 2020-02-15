@@ -2,7 +2,7 @@
   <div class="layout">
     <div class="layout-header">
       <div class="layout-header-l">
-        <router-link to="/layout/home" class="header-box">
+        <router-link to="/jc/layout/home" class="header-box">
           <img src="../assets/games-a.png" alt="">
           <span>游戏大厅</span>
         </router-link>

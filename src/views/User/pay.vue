@@ -244,7 +244,7 @@ export default {
         btnCanClick = true;
         if (res.retCode == 0) {
           this.$Message.success({ duration: 2, content: "支付成功！" });
-          this.$router.replace({ path: "/layout/home" });
+          this.$router.replace({ path: "/jc/layout/home" });
         }
       })
     },
